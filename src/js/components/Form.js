@@ -31,7 +31,7 @@ class ConnectedForm extends Component {
     const { title } = this.state;
     const id = uuidv1();
     this.props.addArticle({ title, id });
-    this.setState({ title: "" });
+    this.refs.input.value = ''
   }
 
   render() {
@@ -40,7 +40,7 @@ class ConnectedForm extends Component {
       <form onSubmit={this.handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Title</label>
-          <input
+          <input ref='input'
             type="text"
             className="form-control"
             id="title"
