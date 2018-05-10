@@ -3,24 +3,38 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { deleteArticle } from "../actions/index";
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, action) => {
+  console.log('state are', state)
+  console.log('action are', action)
   return { articles: state.articles };
 };
 
-const deleteState = dispatch => {
+const mapDispatchToProps = dispatch => {
   return {
     deleteArticle: article => dispatch(deleteArticle(article))
   }
 }
 
-class ConnectedList extends Component {
+// const deleteState = dispatch => {
+//   return {
+//     deleteArticle: article => dispatch(deleteArticle(article))
+//   }
+// }
 
-  handleDelete(event) {
-    event.preventDefault();
-    const { title } = this.state;
-    const id = uuidv1();
-    this.props.addArticle({ title, id });
-    this.setState({ title: "" });
+class ConnectedList extends Component {
+  constructor(props) {
+    super()
+    this.handleDelete = this.handleDelete.bind(this)
+  }
+ 
+  handleDelete (element) {
+    return function () {
+      console.log(element)
+      event.preventDefault();
+      // const { title } = this.state;
+      // const id = uuidv1();
+      console.log(this.props.deleteArticle({ title, id }));
+    }
   }
 
   render() {
@@ -31,7 +45,7 @@ class ConnectedList extends Component {
       {this.props.articles.map(el => (
         <li className="list-group-item" key={el.id}>
           {el.title}
-          {/* <button onClick={}>DELETE</button> */}
+          <button onClick={this.handleDelete(el)}>DELETE</button>
         </li>
       ))}
     </ul>
@@ -50,7 +64,7 @@ class ConnectedList extends Component {
 //   </ul>
 // );
 
-const List = connect(mapStateToProps)(ConnectedList);
+const List = connect(mapStateToProps, mapDispatchToProps)(ConnectedList);
 
 ConnectedList.propTypes = {
   articles: PropTypes.array.isRequired
