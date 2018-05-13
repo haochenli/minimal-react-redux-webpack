@@ -31,10 +31,10 @@ class ConnectedList extends Component {
       event.preventDefault();
       // const { title } = this.state;
       // const id = uuidv1();
-      const {title} = element
+      const {id} = element
       // console.log('element is',element)
       // console.log('function', deleteArticle)
-      deleteArticle(title);
+      deleteArticle(id);
     }
   }
 
