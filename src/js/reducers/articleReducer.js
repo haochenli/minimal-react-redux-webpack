@@ -1,8 +1,6 @@
 import { ADD_ARTICLE, DELETE_ARTICLE } from "../constants/action-types";
 
 const articleReducer = (state = [], action) => {
-  console.log('In reducer the state now is:', state)
-  console.log('In reducer the actiona are', action)
   switch (action.type) {
     case ADD_ARTICLE:
       return [...state, action.payload];

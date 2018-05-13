@@ -3,7 +3,7 @@ export const addArticle = article => ({
   payload: article
 });
 
-export const deleteArticle = article => ({
+export const deleteArticle = articleId => ({
   type: "DELETE_ARTICLE",
-  payload: article
+  payload: articleId
 })

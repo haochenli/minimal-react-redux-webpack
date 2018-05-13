@@ -9,7 +9,7 @@ const mapStateToProps = (state, action) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteArticle: article => dispatch(deleteArticle(article))
+    deleteArticle: articleId => dispatch(deleteArticle(articleId))
   }
 }
 
