@@ -5,5 +5,11 @@ export const addArticle = article => ({
 
 export const deleteArticle = articleId => ({
   type: "DELETE_ARTICLE",
-  payload: articleId
+  id: articleId
 })
+
+// export const editArticle = (changedArticle, article) => ({
+//   type: "EDIT_ARTICLE",
+//   changedArticle: changedArticle,
+//   article: article 
+// })

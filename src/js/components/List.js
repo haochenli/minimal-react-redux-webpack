@@ -1,52 +1,53 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { deleteArticle } from "../actions/index";
+import { deleteArticle, editArticle } from "../actions/index";
 
 const mapStateToProps = (state, action) => {
-  return { articles: state.articles };
+  return { 
+    articles: state.articles
+    // changedArticle: changedArticle
+  };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    deleteArticle: articleId => dispatch(deleteArticle(articleId))
+    deleteArticle: articleId => dispatch(deleteArticle(articleId)),
+    editArticle: article => dispatch(editArticle(article))
   }
 }
-
-// const deleteState = dispatch => {
-//   return {
-//     deleteArticle: article => dispatch(deleteArticle(article))
-//   }
-// }
 
 class ConnectedList extends Component {
   constructor(props) {
     super()
     this.handleDelete = this.handleDelete.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
   }
  
-  handleDelete (element, deleteArticle) {
+  handleDelete (article, deleteArticle) {
     return function () {
-      // console.log(element)
       event.preventDefault();
-      // const { title } = this.state;
-      // const id = uuidv1();
-      const {id} = element
-      // console.log('element is',element)
-      // console.log('function', deleteArticle)
+      const {id} = article;
       deleteArticle(id);
     }
   }
 
+  handleEdit (article, editArticle) {
+    return function () {
+      event.preventDefault();
+      console.log('article is', article)
+      editArticle(article);
+    }
+  }
+
   render() {
-    console.log('the props are', this.props)
-    console.log('the state is', this.state)
     return (
       <ul className="list-group list-group-flush">
       {this.props.articles.map(el => (
         <li className="list-group-item" key={el.id}>
           {el.title}
-          <button onClick={this.handleDelete(el,this.props.deleteArticle)}>DELETE</button>
+          <button onClick={this.handleDelete(el,this.props.deleteArticle)} >DELETE</button>
+          <button onClick={this.handleEdit(el,this.props.editArticle)} >EDIT</button>
         </li>
       ))}
     </ul>

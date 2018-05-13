@@ -10,6 +10,10 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
+const mapStateToProps = (state, action) => {
+  return { articles: state.articles };
+};
+
 class ConnectedForm extends Component {
   constructor() {
     super();
@@ -35,6 +39,7 @@ class ConnectedForm extends Component {
   }
 
   render() {
+    console.log('The props in form is', this.props)
     const { title } = this.state;
     return (
       <form onSubmit={this.handleSubmit}>
@@ -56,7 +61,7 @@ class ConnectedForm extends Component {
   }
 }
 
-const Form = connect(null, mapDispatchToProps)(ConnectedForm);
+const Form = connect(mapStateToProps, mapDispatchToProps)(ConnectedForm);
 
 ConnectedForm.propTypes = {
   addArticle: PropTypes.func.isRequired
