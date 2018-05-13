@@ -4,8 +4,6 @@ import PropTypes from "prop-types";
 import { deleteArticle } from "../actions/index";
 
 const mapStateToProps = (state, action) => {
-  console.log('state are', state)
-  console.log('action are', action)
   return { articles: state.articles };
 };
 
@@ -27,13 +25,16 @@ class ConnectedList extends Component {
     this.handleDelete = this.handleDelete.bind(this)
   }
  
-  handleDelete (element) {
+  handleDelete (element, deleteArticle) {
     return function () {
-      console.log(element)
+      // console.log(element)
       event.preventDefault();
       // const { title } = this.state;
       // const id = uuidv1();
-      console.log(this.props.deleteArticle({ title, id }));
+      const {title} = element
+      // console.log('element is',element)
+      // console.log('function', deleteArticle)
+      deleteArticle(title);
     }
   }
 
@@ -45,7 +46,7 @@ class ConnectedList extends Component {
       {this.props.articles.map(el => (
         <li className="list-group-item" key={el.id}>
           {el.title}
-          <button onClick={this.handleDelete(el)}>DELETE</button>
+          <button onClick={this.handleDelete(el,this.props.deleteArticle)}>DELETE</button>
         </li>
       ))}
     </ul>
